@@ -1,0 +1,45 @@
+<h1> UPLOAD FILE</h1>
+
+<input #fileUpload [accept]="'.json'" type="file" class="file-input" 
+(change)="onFileSelected($event)">
+
+<button 
+(click)="fileUpload.click()"> Import file
+</button> 
+
+<p>File name: {{uploadFileName}}</p>
+<p>File content: {{uploadFileContent}}</p>
+
+
+<h1>SAVE FILE</h1>
+
+<label>File name</label> <input type="text" [(ngModel)]="saveFileName"/> <br/>
+<label>File content:</label> <input type="text" [(ngModel)]="saveFileContent" /> <br/> 
+<label>File extension:</label> <input type="text" [(ngModel)]="saveFileExtension" /> <br/> 
+
+<button 
+(click)="onSaveFile()"> Save file
+</button> 
+
+<div>
+    <input class="einagbeTierNamen" type="text" [(ngModel)]="newTier" (keyup.enter)="addTierZuKontinent()" placeholder="Tiernamen eingeben">
+    <h3>{{namenTiereContinent.continent[0].ContinentName}}</h3>
+    <div>
+        <span id="ausgabeNamen" *ngFor="let tier of namenTiereContinent.tiere">
+        {{tier.name}}
+        </span>
+    </div><br>
+    <div>
+        <div>
+            <span>Zum löschen der Tiere:</span>
+
+        </div>
+        <input class="auswahlJsonFile" type="text" [(ngModel)]="auswahlUser" (keyup.enter)="deleteTierVonKontinent(auswahlUser)" placeholder="Zum löschen von addTierZuKontinent">
+    </div>
+    <div>
+        <span id="ausgabeNamen" *ngIf="vorhanden==true">
+        {{auswahlUser}}
+        </span>
+    </div>
+</div>
+

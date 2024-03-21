@@ -1,0 +1,26 @@
+{
+  "continent": "Australien",
+  "tiere": [
+    {
+      "name": "Elefant"
+    },
+    {
+      "name": "Gnu"
+    },
+    {
+      "name": "Nilpferd"
+    },
+    {
+      "name": "Panther"
+    },
+    {
+      "name": "Löwe"
+    },
+    {
+      "name": "Zebra"
+    },
+    {
+      "name": "Giraffe"
+    }
+  ]
+}
