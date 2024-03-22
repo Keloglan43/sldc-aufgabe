@@ -4,7 +4,7 @@
 (change)="onFileSelected($event)">
 
 <button 
-(click)="fileUpload.click()"> Import file
+(click)="fileUpload.click();" [(ngModel)]="angeklickt"> Import file
 </button> 
 
 <p>File name: {{uploadFileName}}</p>
@@ -21,22 +21,48 @@
 (click)="onSaveFile()"> Save file
 </button> 
 
-<div>
-    <input class="einagbeTierNamen" type="text" [(ngModel)]="newTier" (keyup.enter)="addTierZuKontinent()" placeholder="Tiernamen eingeben">
-    <h3>{{namenTiereContinent.continent[0].ContinentName}}</h3>
-    <div>
-        <span id="ausgabeNamen" *ngFor="let tier of namenTiereContinent.tiere">
-        {{tier.name}}
-        </span>
+<div style="border: 1px solid orange;">
+    <br>
+    <input class="einagbeTierNamen" type="text" [(ngModel)]="newTier" value="" (keyup.enter)="addTierZuKontinent(); " placeholder="Tiernamen eingeben">
+    <h3>{{saveFileName}}</h3>
+    <!-- <h3><span *ngFor="let conti of namenTiereContinent.continent.entries()"></span></h3> -->
+    <div style="border: 1px solid pink;">
+        <div id="ausgabeNamen" *ngFor="let tier of namenTiereContinent.tiere">
+        {{tier.name}} <button id="tierNamenLoeschen" (click)="deleteTierNamenButton(tier.name)">löschen</button>
+        </div>
     </div><br>
-    <div>
-        <div>
+    <div style="border: 1px solid red;">
+        <hr>
+            
+        <input id="dateiInput" type="file" onchange="auslesen(dateiInput)" />
+
+        <!-- <input type='file' accept='text/*' onchange='openFile(event)'><br>
+        <span id='output'></span> >
+
+        <script>
+        var openFile = function(event) {
+            var input = event.target;
+
+            var reader = new FileReader();
+            reader.onload = function(){
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                output.src = dataURL;
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+        </script> -->
+
+
+        <hr>
+
+        <div style="border: 1px solid yellowgreen;">
             <span>Zum löschen der Tiere:</span>
 
         </div>
         <input class="auswahlJsonFile" type="text" [(ngModel)]="auswahlUser" (keyup.enter)="deleteTierVonKontinent(auswahlUser)" placeholder="Zum löschen von addTierZuKontinent">
     </div>
-    <div>
+    <div style="border: 1px solid green;">
         <span id="ausgabeNamen" *ngIf="vorhanden==true">
         {{auswahlUser}}
         </span>

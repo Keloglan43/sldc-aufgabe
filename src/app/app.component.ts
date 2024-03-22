@@ -4,7 +4,7 @@ import AFRIKA from '../assets/AfrikaMitWeiterenTieren.json';
 import EUROPA from '../assets/EuropaMitWeiterenTieren.json';
 import ASIEN from '../assets/AsienMitWeiterenTieren.json';
 import AUSTRALIEN from '../assets/AustralienMitWeiterenTieren.json';
-import { concat } from 'rxjs';
+
 
 
 @Component({
@@ -23,6 +23,15 @@ export class AppComponent {
     tiere: []
   };
 
+  
+  auslesen(data:any): void {
+    const reader = new FileReader;
+    reader.readAsDataURL(data);
+    reader.addEventListener('load', (e) => {
+      const daten = e.target?.result;
+    })
+  }
+  
   testAusgabe():void{
     // for (let i = 0; i < this.myData.length; i++) {
     //   if(i === 1) { break;}
@@ -43,6 +52,7 @@ export class AppComponent {
   newTier:string = '';
   auswahlUser: string;
   vorhanden:boolean = false;
+  angeklickt:boolean = false;
 
   ngOnInit(){
     this.testAusgabe();
@@ -55,7 +65,8 @@ export class AppComponent {
       continent: [{ContinentName: 'Afrika'}],
       tiere: [{name: 'Elefant'}, {name: 'Gnu'}, {name: 'Krokodil'}]
     }
-    this.saveFileName = JSON.stringify(this.namenTiereContinent.continent,null,2);
+    this.saveFileName = JSON.stringify(this.namenTiereContinent.continent,null,2).replace(/"ContinentName":/g, '');
+    this.saveFileName = this.saveFileName.replace(/"|\[|\{|\}|\]/g, '');
     this.saveFileContent = JSON.stringify(this.namenTiereContinent,null,2 )
   }
   addTierZuKontinent(): void {
@@ -63,6 +74,7 @@ export class AppComponent {
       let tier: Tier = {name: this.newTier};
       this.namenTiereContinent.tiere.push(tier);
       this.saveFileContent = JSON.stringify(this.namenTiereContinent, null, 2);
+      this.newTier = '';
     }
   }
   deleteTierVonKontinent(tname: string): void {
@@ -73,6 +85,9 @@ export class AppComponent {
     }
   }
   
+  deleteTierNamenButton(tier:string) {
+    this.deleteTierVonKontinent(tier);
+  }
 
 
 
@@ -122,12 +137,6 @@ export class AppComponent {
 
 }
 
-// export enum Kontis  {
-//   AFRIKA = 0,  
-//   EUROPA = 1, 
-//   ASIEN = 2, 
-//   AUSTRALIEN = 3
-// }
 export enum Kontis  {
   AFRIKA,  
   EUROPA, 
